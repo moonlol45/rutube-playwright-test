@@ -36,10 +36,20 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'chromium authorized',
+      use: { ...devices['Desktop Chrome'], storageState: 'tests/playwright/.auth/user.json' },
+      dependencies: ['auth'],
+      testDir: 'tests/specs/authorized',
     },
-
+    {
+      name: 'chromium unauthorized',
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/specs/unauthorizaded',
+    },
+    {
+      name: 'auth',
+      testMatch: 'tests/specs/authTest.spec.ts',
+    },
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
